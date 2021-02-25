@@ -25,10 +25,9 @@ tr:nth-child(odd) {
 
 table.job-listing {
     margin: 30px auto;
-    border: 1px solid #e4e4e4;
+    border: 2.5px solid gray;
     width: 80%;
 }
-
 table.job-listing td:first-child {
     font-weight: bold;
 }
