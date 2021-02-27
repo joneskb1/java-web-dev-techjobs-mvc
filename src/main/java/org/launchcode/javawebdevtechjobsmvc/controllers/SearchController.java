@@ -29,23 +29,13 @@ public class SearchController {
 
     @PostMapping("results")
     public String displaySearchResults(@RequestParam String searchType, @RequestParam String searchTerm, Model model) {
-        ArrayList<Job> allJobs = JobData.findAll();
-        ArrayList<Job> jobSearchList = new ArrayList<>();
-        if(searchType.equals("all") || searchType.isEmpty()) {
-            // search all jobs for search term and add to jobSearchList
-            for(int i=0; i <allJobs.size(); i++) {
-                String search = allJobs.get(i).toString().toLowerCase();
-                if (search.contains(searchTerm.toLowerCase())) {
-                    jobSearchList.add(allJobs.get(i));
-                }
-            }
-            model.addAttribute("jobList", jobSearchList);
+        List<Job> job = new ArrayList<>();
+        if(searchType.equals("All") || searchTerm.isEmpty()) {
+            job = JobData.findAll();
         } else {
-        // send search term and search type into findByColumnAndValue and store in arrayList
-            jobSearchList = JobData.findByColumnAndValue(searchType, searchTerm);
-            model.addAttribute("jobList", jobSearchList);
-
+            job = JobData.findByColumnAndValue(searchType, searchTerm);
         }
+        model.addAttribute("jobList", job);
         model.addAttribute("columns", columnChoices);
         return "search";
     }
